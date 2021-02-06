@@ -1,7 +1,11 @@
 <resources>
     <string name="app_name">My Events</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_event">Explora Eventos</string>
+    <string name="title_location">Eventos cerca de ti</string>
+    <string name="title_favorite">Favoritos</string>
     <string name="error_message_default">Vaya! Ha ocurrido un error inesperado…</string>
+    
+    <string name="nav_event">Eventos</string>
+    <string name="nav_location">Cerca de ti</string>
+    <string name="nav_favorites">Favoritos</string>
 </resources>

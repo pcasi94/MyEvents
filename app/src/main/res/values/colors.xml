@@ -7,4 +7,33 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!--Base colors-->
+    <color name="colorWhite">#FFF</color>
+    <color name="colorWhite50">#77FFFFFF</color>
+    <color name="colorBlack">#000</color>
+    <color name="colorBlack26">#42000000</color>
+    <color name="colorBlack50">#77000000</color>
+    <color name="colorTransparent">#00000000</color>
+    <!--Primary colors-->
+    <color name="colorPrimaryBlue">#0a51d6</color>
+    <color name="colorPrimaryVariant">#181c22</color>
+    <color name="colorPrimaryRed">#E4002B</color>
+
+    <!--Greyscale-->
+    <color name="colorBackground">#F8F8F8</color>
+    <color name="colorBackgroundVariant">@color/colorWhite</color>
+    <color name="colorGrey5">#464646</color>
+
+    <!--App colors-->
+    <color name="colorPrimary">@color/colorWhite</color>
+    <color name="colorPrimaryDark">@color/colorBlack26</color>
+    <color name="colorAccent">@color/colorPrimaryBlue</color>
+    <color name="colorAccentVariant">@color/colorPrimaryVariant</color>
+    <color name="colorWindowBackground">@color/colorBackground</color>
+    <color name="colorError">@color/colorPrimaryRed</color>
+
+    <color name="colorTextPrimary">@color/colorBlack50</color>
+    <color name="toolbarBackground">@color/colorWhite</color>
+
 </resources>

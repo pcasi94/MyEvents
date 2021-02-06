@@ -14,6 +14,7 @@ class EventListViewModel : ViewModel() {
 
     private val events = MutableLiveData<EventList>()
     private var page = 0
+    private var firstCall = true
 
     fun eventsData(): LiveData<EventList> = events
 
@@ -24,17 +25,20 @@ class EventListViewModel : ViewModel() {
 
 
     fun getMoreEvents(){
-        
-        viewModelScope.launch(Dispatchers.IO){
-            EventsApiDataSource.INSTANCE.getEvents(page, object : CallbackEvents{
-                override fun onSuccess(events: EventList) {
-                    this@EventListViewModel.events.value = events
-                }
+        if(firstCall){
+            firstCall = false
+            viewModelScope.launch(Dispatchers.IO){
+                EventsApiDataSource.INSTANCE.getEvents(page, object : CallbackEvents{
+                    override fun onSuccess(events: EventList) {
+                        this@EventListViewModel.events.value = events
+                    }
 
-                override fun onError(errorCode: Int) {
-                    // TODO SHOW ERROR
-                }
-            })
+                    override fun onError(errorCode: Int) {
+                        // TODO SHOW ERROR
+                    }
+                })
+            }
         }
+
     }
 }
