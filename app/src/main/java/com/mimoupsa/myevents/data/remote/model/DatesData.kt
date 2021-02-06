@@ -1,17 +1,17 @@
 package com.mimoupsa.myevents.data.remote.model
 
-data class Dates(
+data class DatesData(
     val spanMultipleDays: Boolean,
-    val start: Start,
-    val status: Status,
+    val start: StartData,
+    val status: StatusData,
     val timezone: String
 )
 
-data class Status(
+data class StatusData(
     val code: String
 )
 
-data class Start(
+data class StartData(
     val dateTBA: Boolean,
     val dateTBD: Boolean,
     val dateTime: String,

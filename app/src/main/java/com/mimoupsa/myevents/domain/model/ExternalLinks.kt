@@ -1,12 +1,12 @@
-package com.mimoupsa.myevents.data.remote.model
+package com.mimoupsa.myevents.domain.model
 
 data class ExternalLinks(
-    val facebook: List<Facebook>?,
-    val homepage: List<Homepage>?,
-    val instagram: List<Instagram>?,
-    val spotify: List<Spotify>?,
-    val twitter: List<Twitter>?,
-    val youtube: List<Youtube>?
+        val facebook: List<Facebook>?,
+        val homepage: List<Homepage>?,
+        val instagram: List<Instagram>?,
+        val spotify: List<Spotify>?,
+        val twitter: List<Twitter>?,
+        val youtube: List<Youtube>?
 )
 data class Facebook(
         val url: String

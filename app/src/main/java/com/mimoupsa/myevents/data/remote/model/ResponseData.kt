@@ -11,7 +11,7 @@ data class ResponseData (
 
 
 data class EmbeddedData(
-        val events: List<Event>
+        val events: List<EventData>
 )
 data class PageData(
         val size: Int,

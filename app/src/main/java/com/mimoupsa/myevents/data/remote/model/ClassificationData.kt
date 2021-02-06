@@ -1,36 +1,36 @@
 package com.mimoupsa.myevents.data.remote.model
 
-data class Classification(
+data class ClassificationData(
     val family: Boolean,
-    val genre: Genre,
+    val genre: GenreData,
     val primary: Boolean,
-    val segment: Segment,
-    val subGenre: SubGenre,
-    val subType: SubType,
-    val type: Type
+    val segment: SegmentData,
+    val subGenre: SubGenreData?,
+    val subType: SubTypeData?,
+    val type: TypeData?
 )
 
-data class Segment(
+data class SegmentData(
     val id: String,
     val name: String
 )
 
-data class Genre(
+data class GenreData(
     val id: String,
     val name: String
 )
 
-data class SubGenre(
+data class SubGenreData(
     val id: String,
     val name: String
 )
 
-data class SubType(
+data class SubTypeData(
     val id: String,
     val name: String
 )
 
-data class Type(
+data class TypeData(
     val id: String,
     val name: String
 )

@@ -1,6 +1,6 @@
 package com.mimoupsa.myevents.data.remote.model
 
-data class Image(
+data class ImageData(
     val fallback: Boolean,
     val height: Int,
     val ratio: String,

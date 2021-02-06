@@ -1,11 +1,11 @@
 package com.mimoupsa.myevents.data.remote.model
 
 data class EmbeddedEvent (
-    val venues: List<Venue>,
-    val attractions: List<Attraction>
+    val venues: List<VenueData>,
+    val attractions: List<AttractionData>
 )
 
-data class Venue(
+data class VenueData(
         val name: String,
         val type: String,
         val id: String,
@@ -14,18 +14,18 @@ data class Venue(
         val locale: String,
         val postalCode: String,
         val timeZone: String,
-        val city: City,
-        val state: State,
-        val country: Country,
-        val address: Address,
-        val location: Location,
+        val city: CityData,
+        val state: StateData,
+        val country: CountryData,
+        val address: AddressData,
+        val location: LocationData,
 )
 
-data class Attraction(
-        val classifications: List<Classification>,
-        val externalLinks: ExternalLinks,
+data class AttractionData(
+        val classifications: List<ClassificationData>,
+        val externalLinks: ExternalLinksData,
         val id: String,
-        val images: List<Image>,
+        val images: List<ImageData>,
         val locale: String,
         val name: String,
         val test: Boolean,
@@ -33,24 +33,24 @@ data class Attraction(
         val url: String
 )
 
-data class City(
+data class CityData(
         val name: String
 )
 
-data class  State(
+data class  StateData(
         val name: String
 )
 
-data class Country(
+data class CountryData(
         val name: String,
         val countryCode: String
 )
 
-data class Address(
+data class AddressData(
         val line1: String
 )
 
-data class Location(
+data class LocationData(
         val longitude: String,
         val latitude: String
 )
