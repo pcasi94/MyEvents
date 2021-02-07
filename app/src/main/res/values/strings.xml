@@ -8,4 +8,8 @@
     <string name="nav_event">Eventos</string>
     <string name="nav_location">Cerca de ti</string>
     <string name="nav_favorites">Favoritos</string>
+
+    <string name="button_add_to_favorites">Añadir a favoritos</string>
+    <string name="button_delete_from_favorites">Eliminar de favoritos</string>
+    <string name="button_more_info">Más información</string>
 </resources>

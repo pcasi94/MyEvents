@@ -1,6 +1,6 @@
 package com.mimoupsa.myevents.domain.mappers
 
-import android.media.FaceDetector
+import com.mimoupsa.myevents.data.local.db.EventPOJO
 import com.mimoupsa.myevents.data.remote.model.*
 import com.mimoupsa.myevents.domain.model.*
 
@@ -128,5 +128,20 @@ object YoutubeMapper: Mapper<YoutubeData,Youtube>(){
 object GeoPointMapper: Mapper<Location,String>(){
     override fun map(unmapped: Location): String {
         return "${unmapped.latitude},${unmapped.longitude}"
+    }
+}
+
+object EventPOJOMapper: Mapper<Event, EventPOJO>(){
+    override fun map(unmapped: Event): EventPOJO {
+        return EventPOJO(
+            eventId = unmapped.eventId,
+            url = unmapped.url,
+            name = unmapped.name,
+            emplacement = unmapped.emplacement ?: "",
+            city = unmapped.city ?: "",
+            province = unmapped.province ?: "",
+            date = unmapped.date ?: "",
+            image = unmapped.images?.first()?.url ?: "",
+        )
     }
 }

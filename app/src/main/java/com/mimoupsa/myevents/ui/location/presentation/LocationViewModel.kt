@@ -1,20 +1,18 @@
 package com.mimoupsa.myevents.ui.location.presentation
 
 import android.Manifest
+import android.app.Application
 import android.content.pm.PackageManager
 import android.os.Build
 import androidx.annotation.RequiresApi
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.mimoupsa.myevents.data.remote.callback.CallbackEvents
 import com.mimoupsa.myevents.data.remote.datasource.EventsApiDataSource
 import com.mimoupsa.myevents.domain.model.EventList
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class LocationViewModel : ViewModel() {
+class LocationViewModel(application: Application) : AndroidViewModel(application) {
 
     private val events = MutableLiveData<EventList>()
     val askPermissions = MutableLiveData<Any>()

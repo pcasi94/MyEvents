@@ -16,6 +16,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.FragmentNavigator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -36,7 +37,7 @@ class LocationFragment : Fragment() {
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
     private lateinit var client: FusedLocationProviderClient
 
-    private val adapter: EventListAdapter by lazy { EventListAdapter(::onItemClicked) }
+    private val adapter: EventListAdapter by lazy { EventListAdapter(::onFavoritesClicked,::onMoreInfoClicked) }
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -53,9 +54,6 @@ class LocationFragment : Fragment() {
 
         client = LocationServices.getFusedLocationProviderClient(requireActivity())
         checkPermissions()
-
-        recyclerView.layoutManager = LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false)
-        recyclerView.adapter = adapter
 
         swipeRefreshLayout.setOnRefreshListener {
             locationViewModel.getMoreEvents()
@@ -80,12 +78,23 @@ class LocationFragment : Fragment() {
     }
 
 
-    private fun onItemClicked(event: Event){
+    private fun onFavoritesClicked(event: Event){
+
+    }
+
+    private fun onMoreInfoClicked(event: Event){
+
+    }
+
+    private fun navigateToDetail(eventId: Event){
 
     }
 
     private fun bindView(view: View){
         recyclerView = view.findViewById(R.id.rv_location)
+        recyclerView.layoutManager = LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false)
+        recyclerView.adapter = adapter
+
         swipeRefreshLayout = view.findViewById(R.id.swipeRefresh)
     }
 

@@ -1,20 +1,24 @@
 package com.mimoupsa.myevents.ui.event.list.presentation
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import android.app.Application
+import androidx.lifecycle.*
+import com.mimoupsa.myevents.MyEventsApp
+import com.mimoupsa.myevents.data.local.EventDBRepository
 import com.mimoupsa.myevents.data.remote.callback.CallbackEvents
 import com.mimoupsa.myevents.data.remote.datasource.EventsApiDataSource
+import com.mimoupsa.myevents.domain.mappers.EventPOJOMapper
+import com.mimoupsa.myevents.domain.model.Event
 import com.mimoupsa.myevents.domain.model.EventList
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class EventListViewModel : ViewModel() {
+class EventListViewModel(application: Application) : AndroidViewModel(application) {
 
+    private val repository = EventDBRepository(application)
     private val events = MutableLiveData<EventList>()
     private var page = 0
     private var firstCall = true
+    private var insertResult = MutableLiveData<Boolean>()
 
     fun eventsData(): LiveData<EventList> = events
 
@@ -34,6 +38,15 @@ class EventListViewModel : ViewModel() {
                 })
             }
         }
-
     }
+
+    fun saveToFavorites(event: Event){
+        viewModelScope.launch {
+            if (repository.insertEvent(EventPOJOMapper.map(event))){
+                insertResult.postValue(true)
+            }else insertResult.postValue(false)
+        }
+    }
+
+    fun getInsertResult() = insertResult
 }

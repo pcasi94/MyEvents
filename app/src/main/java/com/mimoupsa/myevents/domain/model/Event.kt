@@ -1,6 +1,7 @@
 package com.mimoupsa.myevents.domain.model
 
-import com.mimoupsa.myevents.data.remote.model.LocationData
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
 data class Event(
         val eventId: String,

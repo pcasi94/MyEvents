@@ -4,27 +4,52 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.mimoupsa.myevents.R
+import com.mimoupsa.myevents.data.local.db.EventPOJO
 import com.mimoupsa.myevents.ui.favorite.presentation.FavoritesViewModel
+import com.mimoupsa.myevents.ui.favorite.ui.adapter.EventPojoAdapter
 
 class FavoritesFragment : Fragment() {
 
     private lateinit var favoritesViewModel: FavoritesViewModel
 
+    private val adapter: EventPojoAdapter by lazy { EventPojoAdapter(::onDeleteFromFavoritesClicked, ::onMoreInfoClicked) }
+
+    private lateinit var recyclerView: RecyclerView
+
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
-    ): View? {
-        favoritesViewModel =
-                ViewModelProvider(this).get(FavoritesViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_favorites, container, false)
-        favoritesViewModel.text.observe(viewLifecycleOwner, Observer {
+    ): View? = inflater.inflate(R.layout.fragment_favorites, container, false)
+
+
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        bindView(view)
+        favoritesViewModel = ViewModelProvider(this).get(FavoritesViewModel::class.java)
+        favoritesViewModel.eventDb.observe(viewLifecycleOwner,{
+            adapter.onItems(it)
+            adapter.notifyDataSetChanged()
         })
-        return root
+    }
+
+    private fun bindView(view: View){
+        recyclerView = view.findViewById(R.id.rv_favorites)
+        recyclerView.layoutManager = LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false)
+        recyclerView.adapter = adapter
+    }
+
+    private fun onDeleteFromFavoritesClicked(event: EventPOJO){
+        favoritesViewModel.deleteFromFavorites(event)
+    }
+
+    private fun onMoreInfoClicked(event: EventPOJO){
+
     }
 }

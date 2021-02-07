@@ -1,4 +1,4 @@
-package com.mimoupsa.myevents.ui.common.adapter
+package com.mimoupsa.myevents.ui.favorite.ui.adapter
 
 import android.os.Build
 import android.view.LayoutInflater
@@ -9,21 +9,21 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.mimoupsa.myevents.R
-import com.mimoupsa.myevents.domain.model.Event
-import com.mimoupsa.myevents.domain.model.EventList
+import com.mimoupsa.myevents.data.local.db.EventPOJO
 import com.mimoupsa.myevents.ui.extensions.loadImage
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
-class EventListAdapter(
-    private val onFavoritesClicked: (Event) -> Unit = { },
-    private val onMoreInfoClicked: (Event) -> Unit = { }
+
+class EventPojoAdapter(
+    private val onDeleteFromFavoritesClicked: (EventPOJO) -> Unit = { },
+    private val onMoreInfoClicked: (EventPOJO) -> Unit = { }
 ): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private var events:MutableList<Event> = mutableListOf()
+    private var events: MutableList<EventPOJO> = mutableListOf()
 
-    fun onItems(e: EventList){
-        this.events = e.list.toMutableList()
+    fun onItems(e: List<EventPOJO>) {
+        this.events = e.toMutableList()
     }
 
     override fun getItemCount(): Int = events.size
@@ -48,19 +48,22 @@ class EventListAdapter(
         private val txtEventName: TextView = itemView.findViewById(R.id.txtEventName)
         private val txtEventDate: TextView = itemView.findViewById(R.id.txtEventDate)
         private val txtEventEmplacement: TextView = itemView.findViewById(R.id.txtEventEmplacement)
-        private val txtEventCity:TextView = itemView.findViewById(R.id.txtEventCity)
+        private val txtEventCity: TextView = itemView.findViewById(R.id.txtEventCity)
         private val btnFavorites: Button = itemView.findViewById(R.id.btnFavorites)
         private val btnMoreInfo: Button = itemView.findViewById(R.id.btnMoreInfo)
 
 
-        fun bindViewHolder(event: Event){
-            event.images?.first()?.url?.let {
-                image.loadImage(itemView.context,it)
+        fun bindViewHolder(event: EventPOJO) {
+
+            event.image.let {
+                image.loadImage(itemView.context, it)
             }
+            btnFavorites.text = itemView.context.getString(R.string.button_delete_from_favorites)
             txtEventName.text = event.name
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                event.date?.let {
-                    txtEventDate.text = LocalDate.parse(it, DateTimeFormatter.ISO_DATE_TIME).toString()
+                if (event.date.isNotBlank()) {
+                    txtEventDate.text =
+                        LocalDate.parse(event.date, DateTimeFormatter.ISO_DATE_TIME).toString()
                 }
             }
             txtEventEmplacement.text = event.emplacement
@@ -68,7 +71,7 @@ class EventListAdapter(
         }
 
         init {
-            btnFavorites.setOnClickListener { onFavoritesClicked(events[adapterPosition]) }
+            btnFavorites.setOnClickListener { onDeleteFromFavoritesClicked(events[adapterPosition]) }
             btnMoreInfo.setOnClickListener { onMoreInfoClicked(events[adapterPosition]) }
         }
     }
