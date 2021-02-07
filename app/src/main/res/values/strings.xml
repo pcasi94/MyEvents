@@ -17,4 +17,9 @@
     <string name="button_close_settings">cerrar</string>
     <string name="button_save_settings">guardar</string>
     <string name="settings_radius_info">Elige el radio máximo en el que busquemos eventos cerca de ti.</string>
+
+    <string name="search_hint">"Busca por palabras clave"</string>
+
+    <string name="insert_success">¡Guardado!</string>
+    <string name="insert_exists_error">¡Ya tienes guardado este evento en favoritos!</string>
 </resources>

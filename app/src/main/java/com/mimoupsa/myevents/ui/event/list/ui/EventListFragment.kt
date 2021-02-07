@@ -1,7 +1,9 @@
 package com.mimoupsa.myevents.ui.event.list.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.*
+import android.widget.SearchView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -46,8 +48,8 @@ class EventListFragment : Fragment() {
         })
 
         eventListViewModel.getInsertResult().observe(viewLifecycleOwner,{
-            if(it) Toast.makeText(requireContext(),"Se ha guardado correctamente!",Toast.LENGTH_SHORT).show()
-            else Toast.makeText(requireContext(),"Ya tienes guardado este evento en favoritos!",Toast.LENGTH_SHORT).show()
+            if(it) Toast.makeText(requireContext(),getString(R.string.insert_success),Toast.LENGTH_SHORT).show()
+            else Toast.makeText(requireContext(),R.string.insert_exists_error,Toast.LENGTH_SHORT).show()
         })
     }
 
@@ -67,8 +69,29 @@ class EventListFragment : Fragment() {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.toolbar_menu,menu)
-        val itemMenu = menu.findItem(R.id.itemMenuSettings)
-        itemMenu.isVisible = false
+        val itemMenuSettings = menu.findItem(R.id.itemMenuSettings)
+        itemMenuSettings.isVisible = false
+
+        val itemMenuSearch = menu.findItem(R.id.itemMenuSearch)
+        val search = itemMenuSearch?.actionView as SearchView
+        search.queryHint = getString(R.string.search_hint)
+
+
+        search.setOnCloseListener {
+            eventListViewModel.updateKeyWord(null)
+            false
+        }
+        search.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                eventListViewModel.updateKeyWord(query)
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                return false
+            }
+
+        })
         super.onCreateOptionsMenu(menu, inflater)
     }
 

@@ -22,8 +22,8 @@ class EventsApiDataSource {
         RetrofitHelper.getRetrofit().create(EventListService::class.java)
     }
 
-    fun getEvents(page: Int, callback: CallbackEvents){
-        service.getEvents().enqueue(object : ServiceCallback<ResponseData>(){
+    fun getEvents(page: Int, kw:String?, callback: CallbackEvents){
+        service.getEvents(keyword = kw).enqueue(object : ServiceCallback<ResponseData>(){
             override fun onSuccess(response: ResponseData?) {
                 response?.apply {
                     callback.onSuccess(
