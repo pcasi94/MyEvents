@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <SeekBar
+        android:id="@+id/customSeekBar"
+        android:layout_width="match_parent"
+        android:progress="200"
+        android:layout_height="wrap_content"
+        android:progressDrawable="@drawable/custom_seekbar"
+        android:thumb="@drawable/custom_thumb"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/txtRadiusSeekBar"
+        android:textAppearance="@style/TextAppearanceH3"
+        android:textColor="@color/colorTextPrimary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dimen10"
+        android:layout_marginVertical="@dimen/dimen10"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/customSeekBar"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -22,7 +22,6 @@ class LocationViewModel(application: Application) : AndroidViewModel(application
     private var page = 0
     private var latitude: Double = 0.0
     private var longitude: Double = 0.0
-    private var firstCall = true
     private val dataSource = EventsApiDataSource.INSTANCE
 
     fun eventsData(): LiveData<EventList> = events

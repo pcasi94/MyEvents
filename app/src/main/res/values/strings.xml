@@ -12,4 +12,8 @@
     <string name="button_add_to_favorites">Añadir a favoritos</string>
     <string name="button_delete_from_favorites">Eliminar de favoritos</string>
     <string name="button_more_info">Más información</string>
+    <string name="radius_km_seekbar">%s Km</string>
+    <string name="settings_header">ajustes</string>
+    <string name="button_close_settings">cerrar</string>
+    <string name="settings_radius_info">Elige el radio máximo en el que busquemos eventos cerca de ti.</string>
 </resources>

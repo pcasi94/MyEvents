@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/txtSettingsHeader"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/btnSettingsClose"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textAppearance="@style/TextAppearanceH1"
+        android:text="@string/settings_header"
+        android:textAllCaps="true"
+        android:layout_marginTop="@dimen/dimen40"
+        android:layout_marginHorizontal="@dimen/dimen20"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content">
+    </TextView>
+
+    <Button
+        android:id="@+id/btnSettingsClose"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        style="@style/BorderlessButtonStyle"
+        android:text="@string/button_close_settings"
+        android:layout_marginTop="@dimen/dimen40"
+        android:layout_marginHorizontal="@dimen/dimen20"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+    </Button>
+
+    <TextView
+        android:id="@+id/txtSettingsRadiusHeader"
+        app:layout_constraintTop_toBottomOf="@id/txtSettingsHeader"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textAppearance="@style/TextAppearanceH2"
+        android:text="@string/settings_radius_info"
+        android:layout_marginTop="@dimen/dimen40"
+        android:layout_marginHorizontal="@dimen/dimen20"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content">
+    </TextView>
+
+    <com.mimoupsa.myevents.ui.customviews.SeekBar
+        android:id="@+id/customSeekBarSettings"
+        app:layout_constraintTop_toBottomOf="@id/txtSettingsRadiusHeader"
+        android:layout_marginTop="@dimen/dimen20"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content">
+    </com.mimoupsa.myevents.ui.customviews.SeekBar>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
