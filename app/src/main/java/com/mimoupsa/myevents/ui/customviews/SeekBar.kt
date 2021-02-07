@@ -5,6 +5,7 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.LinearLayout
 import android.widget.SeekBar
+import androidx.annotation.StringRes
 import androidx.core.content.withStyledAttributes
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -18,7 +19,6 @@ class SeekBar @JvmOverloads constructor(
 ) : LinearLayout(context, attrs, defStyleAttr) {
 
     private lateinit var mInflater: LayoutInflater
-    private var stringResource: Int = -1
     val mProgress =  MutableLiveData<Int>()
 
     init {
@@ -39,7 +39,7 @@ class SeekBar @JvmOverloads constructor(
                         fromUser: Boolean
                     ) {
                         mProgress.value = progress
-                        txtRadiusSeekBar.text = context.getString(stringResource,progress.toString())
+                        txtRadiusSeekBar.text = context.getString(R.string.radius_km_seekbar,progress.toString())
                     }
 
                     override fun onStartTrackingTouch(seekBar: SeekBar?) {
@@ -62,14 +62,6 @@ class SeekBar @JvmOverloads constructor(
 
     fun setProgress(progress: Int){
         customSeekBar.progress = progress
-    }
-
-    fun setProgressValue(int: Int){
-        mProgress.value = int
-    }
-
-    fun setStringResource(res: Int){
-        stringResource = res
     }
 
 

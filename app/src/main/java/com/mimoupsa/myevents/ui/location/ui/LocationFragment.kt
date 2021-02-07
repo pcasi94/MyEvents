@@ -8,6 +8,7 @@ import android.location.Location
 import android.location.LocationManager
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,8 +30,10 @@ import com.mimoupsa.myevents.domain.model.Event
 import com.mimoupsa.myevents.ui.common.adapter.EventListAdapter
 import com.mimoupsa.myevents.ui.location.presentation.LocationViewModel
 import com.mimoupsa.myevents.ui.location.presentation.LocationViewModel.Companion.LOCATION_CODE
+import com.mimoupsa.myevents.ui.settings.NoticeDialogListener
+import com.mimoupsa.myevents.ui.settings.SettingsDialog
 
-class LocationFragment : Fragment() {
+class LocationFragment : Fragment(), NoticeDialogListener{
 
     private lateinit var locationViewModel: LocationViewModel
     private lateinit var recyclerView: RecyclerView
@@ -77,13 +80,18 @@ class LocationFragment : Fragment() {
 
     }
 
+    override fun onSaveProgress(progress: Int) {
+        Log.i("OYE", "Guardado socio no te raies")
+    }
+
 
     private fun onFavoritesClicked(event: Event){
 
     }
 
     private fun onMoreInfoClicked(event: Event){
-
+        val dialog = SettingsDialog(this,12)
+        dialog.show(requireActivity().supportFragmentManager, SettingsDialog::class.java.name)
     }
 
     private fun navigateToDetail(eventId: Event){

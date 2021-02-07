@@ -2,25 +2,20 @@ package com.mimoupsa.myevents.ui.settings
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.DialogFragment
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.mimoupsa.myevents.R
 import com.mimoupsa.myevents.ui.customviews.SeekBar
 
-class SettingsDialog: DialogFragment() {
+class SettingsDialog(private val listener: NoticeDialogListener,private var progress: Int): BottomSheetDialogFragment() {
 
-    private lateinit var listener: NoticeDialogListener
-
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setStyle(STYLE_NORMAL,
-            android.R.style.Theme_DeviceDefault_NoActionBar_Fullscreen)
-        isCancelable = true
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,27 +29,23 @@ class SettingsDialog: DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val seekBar = view.findViewById<SeekBar>(R.id.customSeekBarSettings)
+        val btnClose = view.findViewById<Button>(R.id.btnSettingsClose)
+        val btnSave = view.findViewById<Button>(R.id.btnSettingsSave)
 
         seekBar.setBounds(MINIMUM_RADIUS, MAXIMUM_RADIUS)
-        seekBar.setStringResource(R.string.radius_km_seekbar)
+        seekBar.setProgress(progress)
 
+        seekBar.mProgress.observe(viewLifecycleOwner,{
+            progress = it
+        })
 
-    }
-
-
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        // Verify that the host fragment implements the callback interface
-        try {
-            // Instantiate the NoticeDialogListener so we can send events to the host
-            listener = context as NoticeDialogListener
-        } catch (e: ClassCastException) {
-            // The activity doesn't implement the interface, throw exception
-            throw ClassCastException((context.toString() +
-                    " must implement NoticeDialogListener"))
+        btnClose.setOnClickListener { dismiss() }
+        btnSave.setOnClickListener {
+            listener.onSaveProgress(progress)
+            dismiss()
         }
     }
+
 
     companion object{
         const val MAXIMUM_RADIUS = 250

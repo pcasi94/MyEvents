@@ -4,26 +4,28 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <SeekBar
-        android:id="@+id/customSeekBar"
-        android:layout_width="match_parent"
-        android:progress="200"
-        android:layout_height="wrap_content"
-        android:progressDrawable="@drawable/custom_seekbar"
-        android:thumb="@drawable/custom_thumb"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
     <TextView
         android:id="@+id/txtRadiusSeekBar"
         android:textAppearance="@style/TextAppearanceH3"
         android:textColor="@color/colorTextPrimary"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dimen10"
         android:layout_marginVertical="@dimen/dimen10"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/customSeekBar"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/customSeekBar"/>
+
+    <SeekBar
+        android:id="@+id/customSeekBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:progressDrawable="@drawable/custom_seekbar"
+        android:thumb="@drawable/custom_thumb"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtRadiusSeekBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

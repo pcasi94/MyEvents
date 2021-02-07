@@ -32,6 +32,11 @@
         <item name="android:insetBottom">0dp</item>
     </style>
 
+    <style name="BorderlessButtonStyle.Red">
+        <item name="android:textColor">@color/colorPrimaryRed</item>
+        <item name="iconTint">@color/colorPrimaryRed</item>
+    </style>
+
     <style name="ButtonStyle" parent="Widget.MaterialComponents.Button">
         <item name="android:textColor">@color/colorWhite</item>
         <item name="android:textAllCaps">false</item>

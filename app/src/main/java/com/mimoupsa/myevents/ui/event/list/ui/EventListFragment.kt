@@ -13,12 +13,15 @@ import com.mimoupsa.myevents.R
 import com.mimoupsa.myevents.domain.model.Event
 import com.mimoupsa.myevents.ui.event.list.presentation.EventListViewModel
 import com.mimoupsa.myevents.ui.common.adapter.EventListAdapter
+import com.mimoupsa.myevents.ui.settings.NoticeDialogListener
+import com.mimoupsa.myevents.ui.settings.SettingsDialog
 
 class EventListFragment : Fragment() {
 
     private lateinit var eventListViewModel: EventListViewModel
     private lateinit var recyclerView: RecyclerView
     private val adapter: EventListAdapter by lazy { EventListAdapter(::onFavoritesClicked,::onMoreInfoClicked) }
+
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -57,4 +60,7 @@ class EventListFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false)
         recyclerView.adapter = adapter
     }
+
+
+
 }

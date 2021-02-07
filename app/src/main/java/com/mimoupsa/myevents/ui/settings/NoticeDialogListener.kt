@@ -1,5 +1,7 @@
 package com.mimoupsa.myevents.ui.settings
 
-interface NoticeDialogListener {
-    fun onSave(progress: Int)
+import java.io.Serializable
+
+interface NoticeDialogListener: Serializable {
+    fun onSaveProgress(progress: Int)
 }
