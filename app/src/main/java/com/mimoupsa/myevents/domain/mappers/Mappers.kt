@@ -22,7 +22,7 @@ object EventMapper: Mapper<EventData, Event>(){
                 priceRangesData = unmapped.priceRanges?.let { PriceRangesMapper.map(it) },
                 images = unmapped.images.let { ImageMapper.map(it) },
                 classifications = unmapped.classifications.let { ClassificationsMapper.map(it) },
-                externalLinks = unmapped.embedded.attractions.first().externalLinks.let { ExternalLinksMapper.map(it) }
+                externalLinks = unmapped.embedded.attractions.first().externalLinks?.let { ExternalLinksMapper.map(it) }
         )
     }
 }
@@ -122,5 +122,11 @@ object YoutubeMapper: Mapper<YoutubeData,Youtube>(){
         return Youtube(
                 url = unmapped.url
         )
+    }
+}
+
+object GeoPointMapper: Mapper<Location,String>(){
+    override fun map(unmapped: Location): String {
+        return "${unmapped.latitude},${unmapped.longitude}"
     }
 }

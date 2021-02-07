@@ -23,4 +23,13 @@ interface EventListService {
             @Query("apikey")apiKey: String = BuildConfig.API_KEY
     ): Call<EventData>
 
+    @GET("events")
+    fun getEventsByLocation(
+        @Query("page")page:Int,
+        @Query("radius")radius:String = "12",
+        @Query("unit")unit:String = "km",
+        @Query("geoPoint")geoPoint:String,
+        @Query("apikey")apiKey: String = BuildConfig.API_KEY
+    ): Call<ResponseData>
+
 }

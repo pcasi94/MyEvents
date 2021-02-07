@@ -1,4 +1,4 @@
-package com.mimoupsa.myevents.ui.event.list.ui.adapter
+package com.mimoupsa.myevents.ui.common.adapter
 
 import android.os.Build
 import android.view.LayoutInflater
@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.mimoupsa.myevents.R
 import com.mimoupsa.myevents.domain.model.Event
@@ -56,7 +55,9 @@ class EventListAdapter(
             }
             txtEventName.text = event.name
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                txtEventDate.text = LocalDate.parse(event.date, DateTimeFormatter.ISO_DATE_TIME).toString()
+                event.date?.let {
+                    txtEventDate.text = LocalDate.parse(it, DateTimeFormatter.ISO_DATE_TIME).toString()
+                }
             }
             txtEventEmplacement.text = event.emplacement
             txtEventCity.text = event.city

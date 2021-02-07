@@ -18,11 +18,6 @@ class EventListViewModel : ViewModel() {
 
     fun eventsData(): LiveData<EventList> = events
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is dashboard Fragment"
-    }
-    val text: LiveData<String> = _text
-
 
     fun getMoreEvents(){
         if(firstCall){

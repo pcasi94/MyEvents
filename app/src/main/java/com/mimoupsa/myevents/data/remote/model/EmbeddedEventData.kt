@@ -23,7 +23,7 @@ data class VenueData(
 
 data class AttractionData(
         val classifications: List<ClassificationData>,
-        val externalLinks: ExternalLinksData,
+        val externalLinks: ExternalLinksData?,
         val id: String,
         val images: List<ImageData>,
         val locale: String,
