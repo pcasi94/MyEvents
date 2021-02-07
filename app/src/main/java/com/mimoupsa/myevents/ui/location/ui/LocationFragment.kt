@@ -9,9 +9,8 @@ import android.location.LocationManager
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.widget.Toolbar
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -27,6 +26,7 @@ import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
 import com.mimoupsa.myevents.R
 import com.mimoupsa.myevents.domain.model.Event
+import com.mimoupsa.myevents.ui.MainActivity
 import com.mimoupsa.myevents.ui.common.adapter.EventListAdapter
 import com.mimoupsa.myevents.ui.location.presentation.LocationViewModel
 import com.mimoupsa.myevents.ui.location.presentation.LocationViewModel.Companion.LOCATION_CODE
@@ -42,16 +42,22 @@ class LocationFragment : Fragment(), NoticeDialogListener{
 
     private val adapter: EventListAdapter by lazy { EventListAdapter(::onFavoritesClicked,::onMoreInfoClicked) }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? = inflater.inflate(R.layout.fragment_location, container, false)
 
-
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (activity as MainActivity).supportActionBar?.setTitle(R.string.title_location)
+
         bindView(view)
         locationViewModel = ViewModelProvider(this).get(LocationViewModel::class.java)
 
@@ -80,8 +86,26 @@ class LocationFragment : Fragment(), NoticeDialogListener{
 
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.toolbar_menu,menu)
+        val itemMenu = menu.findItem(R.id.itemMenuSearch)
+        itemMenu.isVisible = false
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.itemMenuSettings -> {
+                val dialog = SettingsDialog(this,12)
+                dialog.show(requireActivity().supportFragmentManager, SettingsDialog::class.java.name)
+                return true
+            }
+        }
+        return false
+    }
+
     override fun onSaveProgress(progress: Int) {
-        Log.i("OYE", "Guardado socio no te raies")
+
     }
 
 

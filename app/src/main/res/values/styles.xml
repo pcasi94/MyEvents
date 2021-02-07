@@ -2,6 +2,18 @@
 <resources>
     <style name="TextViewStyle" parent="Widget.MaterialComponents.TextView" />
 
+
+    <!-- Toolbar -->
+    <style name="ToolbarStyle" parent="ThemeOverlay.AppCompat.ActionBar">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="titleTextColor">@android:color/white</item>
+        <item name="android:background">@color/colorPrimaryBlue</item>
+        <item name="android:textSize">@dimen/textSizeH2</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <!--Text-->
     <style name="TextAppearanceH1" parent="Theme.MyEvents">
         <item name="android:textSize">@dimen/textSizeH1</item>

@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mimoupsa.myevents.R
 import com.mimoupsa.myevents.data.local.db.EventPOJO
+import com.mimoupsa.myevents.ui.MainActivity
 import com.mimoupsa.myevents.ui.favorite.presentation.FavoritesViewModel
 import com.mimoupsa.myevents.ui.favorite.ui.adapter.EventPojoAdapter
 
@@ -31,6 +32,8 @@ class FavoritesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (activity as MainActivity).supportActionBar?.setTitle(R.string.title_favorite)
+
         bindView(view)
         favoritesViewModel = ViewModelProvider(this).get(FavoritesViewModel::class.java)
         favoritesViewModel.eventDb.observe(viewLifecycleOwner,{
