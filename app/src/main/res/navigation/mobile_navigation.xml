@@ -9,18 +9,38 @@
         android:id="@+id/navigation_event"
         android:name="com.mimoupsa.myevents.ui.event.list.ui.EventListFragment"
         android:label="@string/title_event"
-        tools:layout="@layout/fragment_favorites" />
+        tools:layout="@layout/fragment_event_list">
+        <action
+            android:id="@+id/action_navigation_event_to_eventDetailFragment"
+            app:destination="@id/eventDetailFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_location"
         android:name="com.mimoupsa.myevents.ui.location.ui.LocationFragment"
         android:label="@string/title_location"
-        tools:layout="@layout/fragment_location" />
+        tools:layout="@layout/fragment_location">
+        <action
+            android:id="@+id/action_navigation_location_to_eventDetailFragment"
+            app:destination="@id/eventDetailFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_favorite"
         android:name="com.mimoupsa.myevents.ui.favorite.ui.FavoritesFragment"
         android:label="@string/title_favorite"
-        tools:layout="@layout/fragment_event_list" />
+        tools:layout="@layout/fragment_favorites">
+        <action
+            android:id="@+id/action_navigation_favorite_to_eventDetailFragment"
+            app:destination="@id/eventDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/eventDetailFragment"
+        android:name="com.mimoupsa.myevents.ui.event.detail.ui.EventDetailFragment"
+        android:label="EventDetailFragment" >
+        <argument
+            android:name="id"
+            app:argType="string" />
+    </fragment>
 
 </navigation>

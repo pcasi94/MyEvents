@@ -23,7 +23,7 @@ class EventListViewModel(application: Application) : AndroidViewModel(applicatio
     private var insertResult = MutableLiveData<Boolean>()
     private var keyword: String? = null
     var error = MutableLiveData<ErrorModel>()
-    val url = MutableLiveData<String>()
+    val onDetail = MutableLiveData<String>()
 
     fun eventsData(): LiveData<EventList> = events
 
@@ -83,8 +83,8 @@ class EventListViewModel(application: Application) : AndroidViewModel(applicatio
         getEvents()
     }
 
-    fun openUrl(event: Event){
-        url.value = event.url
+    fun onMoreInfoClicked(event: Event){
+        onDetail.value = event.eventId
     }
 
     companion object{

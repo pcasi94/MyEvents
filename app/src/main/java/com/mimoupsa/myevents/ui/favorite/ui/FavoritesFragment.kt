@@ -11,6 +11,8 @@ import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.FragmentNavigator
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
@@ -32,6 +34,12 @@ class FavoritesFragment : Fragment() {
     private lateinit var viewpager: ViewPager2
     private lateinit var indicator: IndefinitePagerIndicator
     private lateinit var textNoFavorites: TextView
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        (activity as MainActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        (activity as MainActivity).supportActionBar?.setDisplayShowHomeEnabled(false)
+    }
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -56,8 +64,8 @@ class FavoritesFragment : Fragment() {
             adapter.notifyDataSetChanged()
         })
 
-        favoritesViewModel.url.observe(viewLifecycleOwner,{
-            openUrl(it)
+        favoritesViewModel.onDetail.observe(viewLifecycleOwner,{
+            navigateToEventDetailFragment(it)
         })
     }
 
@@ -75,13 +83,14 @@ class FavoritesFragment : Fragment() {
     }
 
     private fun onMoreInfoClicked(event: EventPOJO){
-        favoritesViewModel.openUrl(event)
+        favoritesViewModel.onMoreInfoClicked(event)
     }
 
-    private fun openUrl(url: String){
-        val i = Intent(Intent.ACTION_VIEW)
-        i.data = Uri.parse(url)
-        startActivity(i)
+    private fun navigateToEventDetailFragment(id: String){
+        val action = FavoritesFragmentDirections.actionNavigationFavoriteToEventDetailFragment(
+            id
+        )
+        findNavController().navigate(action)
     }
 
 }

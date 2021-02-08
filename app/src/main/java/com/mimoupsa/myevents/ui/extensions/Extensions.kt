@@ -24,3 +24,7 @@ fun View.visible() {
 fun View.invisible() {
     visibility = View.INVISIBLE
 }
+
+fun View.switchVisibility(it: Any?){
+    if (it == null) visibility = View.GONE
+}

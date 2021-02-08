@@ -27,7 +27,7 @@ class LocationViewModel(application: Application) : AndroidViewModel(application
     private val repository = EventDBRepository(application)
     private var insertResult = MutableLiveData<Boolean>()
     var radiusSettings = MutableLiveData<Int>()
-    val url = MutableLiveData<String>()
+    val onDetail = MutableLiveData<String>()
     var error = MutableLiveData<ErrorModel>()
     private var noMore = false
 
@@ -128,8 +128,8 @@ class LocationViewModel(application: Application) : AndroidViewModel(application
         radiusSettings.value = PreferencesManager(getApplication()).radius
     }
 
-    fun openUrl(event: Event){
-        url.value = event.url
+    fun onMoreInfoClicked(event: Event){
+        onDetail.value = event.eventId
     }
 
     companion object{

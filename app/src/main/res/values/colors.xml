@@ -14,6 +14,7 @@
     <color name="colorBlack">#000</color>
     <color name="colorBlack26">#42000000</color>
     <color name="colorBlack50">#77000000</color>
+    <color name="colorBlack70">#1C1C1C</color>
     <color name="colorTransparent">#00000000</color>
     <!--Primary colors-->
     <color name="colorPrimaryBlue">#0a51d6</color>
@@ -33,7 +34,7 @@
     <color name="colorWindowBackground">@color/colorBackground</color>
     <color name="colorError">@color/colorPrimaryRed</color>
 
-    <color name="colorTextPrimary">@color/colorBlack50</color>
+    <color name="colorTextPrimary">@color/colorBlack70</color>
     <color name="toolbarBackground">@color/colorWhite</color>
 
 </resources>

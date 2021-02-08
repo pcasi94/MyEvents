@@ -4,6 +4,7 @@ import android.util.Log
 import com.mimoupsa.myevents.BuildConfig
 import com.mimoupsa.myevents.data.remote.RetrofitHelper
 import com.mimoupsa.myevents.data.remote.ServiceCallback
+import com.mimoupsa.myevents.data.remote.callback.CallbackEventDetail
 import com.mimoupsa.myevents.data.remote.callback.CallbackEvents
 import com.mimoupsa.myevents.data.remote.model.EventData
 import com.mimoupsa.myevents.data.remote.model.ResponseData
@@ -40,14 +41,16 @@ class EventsApiDataSource {
         })
     }
 
-    fun getEventDetail(eventId: String){
+    fun getEventDetail(eventId: String, callback: CallbackEventDetail){
         service.getEventDetail(eventId).enqueue(object : ServiceCallback<EventData>(){
             override fun onSuccess(response: EventData?) {
-
+                response?.apply {
+                    callback.onSuccess(EventMapper.map(this))
+                }
             }
 
             override fun onError(error: Int, message: String?) {
-
+                callback.onError(error)
             }
         })
     }

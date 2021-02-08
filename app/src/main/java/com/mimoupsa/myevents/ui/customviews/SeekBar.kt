@@ -18,7 +18,7 @@ class SeekBar @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : LinearLayout(context, attrs, defStyleAttr) {
 
-    private lateinit var mInflater: LayoutInflater
+    private var mInflater: LayoutInflater
     val mProgress =  MutableLiveData<Int>()
 
     init {

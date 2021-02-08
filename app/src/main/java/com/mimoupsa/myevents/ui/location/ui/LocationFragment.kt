@@ -16,6 +16,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -42,12 +43,9 @@ class LocationFragment : Fragment(), NoticeDialogListener{
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        (activity as MainActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        (activity as MainActivity).supportActionBar?.setDisplayShowHomeEnabled(false)
         setHasOptionsMenu(true)
-    }
-
-    @RequiresApi(Build.VERSION_CODES.M)
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
     }
 
     override fun onCreateView(
@@ -96,8 +94,8 @@ class LocationFragment : Fragment(), NoticeDialogListener{
             openSettingsDialog(it)
         })
 
-        locationViewModel.url.observe(viewLifecycleOwner,{
-            openUrl(it)
+        locationViewModel.onDetail.observe(viewLifecycleOwner,{
+            navigateToEventDetailFragment(it)
         })
 
         locationViewModel.error.observe(viewLifecycleOwner,{
@@ -134,7 +132,7 @@ class LocationFragment : Fragment(), NoticeDialogListener{
     }
 
     private fun onMoreInfoClicked(event: Event){
-        locationViewModel.openUrl(event)
+        locationViewModel.onMoreInfoClicked(event)
     }
 
     private fun onLastItemReached(){
@@ -146,10 +144,12 @@ class LocationFragment : Fragment(), NoticeDialogListener{
         dialog.show(requireActivity().supportFragmentManager, SettingsDialog::class.java.name)
     }
 
-    private fun openUrl(url: String){
-        val i = Intent(Intent.ACTION_VIEW)
-        i.data = Uri.parse(url)
-        startActivity(i)
+    private fun navigateToEventDetailFragment(id: String){
+        findNavController().navigate(
+            LocationFragmentDirections.actionNavigationLocationToEventDetailFragment(
+                id
+            )
+        )
     }
 
     private fun bindView(view: View){

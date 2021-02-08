@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 class FavoritesViewModel(application: Application) : AndroidViewModel(application) {
 
     private val repository = EventDBRepository(application)
-    val url = MutableLiveData<String>()
+    val onDetail = MutableLiveData<String>()
 
     val eventDb: LiveData<List<EventPOJO>> = repository.getAllEvents()
 
@@ -24,8 +24,8 @@ class FavoritesViewModel(application: Application) : AndroidViewModel(applicatio
         }
     }
 
-    fun openUrl(event: EventPOJO){
-        url.value = event.url
+    fun onMoreInfoClicked(event: EventPOJO){
+        onDetail.value = event.eventId
     }
 
 

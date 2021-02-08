@@ -3,6 +3,7 @@
     <string name="title_event">Explora Eventos</string>
     <string name="title_location">Eventos cerca de ti</string>
     <string name="title_favorite">Favoritos</string>
+    <string name="title_detail">Detalle</string>
     <string name="error_message_default">Vaya! Ha ocurrido un error inesperado…</string>
     
     <string name="nav_event">Eventos</string>
@@ -14,6 +15,7 @@
     <string name="button_more_info">Más información</string>
     <string name="radius_km_seekbar">%s Km</string>
     <string name="settings_header">ajustes</string>
+    <string name="button_buy_tickets">comprar tickets</string>
     <string name="button_close_settings">cerrar</string>
     <string name="button_save_settings">guardar</string>
     <string name="settings_radius_info">Elige el radio máximo en el que busquemos eventos cerca de ti.</string>
@@ -24,4 +26,10 @@
     <string name="insert_exists_error">¡Ya tienes guardado este evento en favoritos!</string>
     <string name="string_ok">OK</string>
     <string name="no_favorites">¡Aún no tienes ningún evento guardado como favoritos, prueba a agregar uno!</string>
+    <string name="detail_facebook">Facebook</string>
+    <string name="detail_homepage">Pagina web</string>
+    <string name="detail_instagram">Instagram</string>
+    <string name="detail_spotify">Spotify</string>
+    <string name="detail_twitter">Twitter</string>
+    <string name="currency"><strong>Precios desde</strong> : %1s <strong>hasta</strong> %2s %3s</string>
 </resources>

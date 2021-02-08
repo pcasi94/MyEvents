@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mimoupsa.myevents.R
@@ -25,6 +26,8 @@ class EventListFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        (activity as MainActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        (activity as MainActivity).supportActionBar?.setDisplayShowHomeEnabled(false)
         setHasOptionsMenu(true)
     }
 
@@ -52,8 +55,8 @@ class EventListFragment : Fragment() {
             else Toast.makeText(requireContext(),R.string.insert_exists_error,Toast.LENGTH_SHORT).show()
         })
 
-        eventListViewModel.url.observe(viewLifecycleOwner,{
-            openUrl(it)
+        eventListViewModel.onDetail.observe(viewLifecycleOwner,{
+            navigateToEventDetailFragment(it)
         })
 
         eventListViewModel.error.observe(viewLifecycleOwner,{
@@ -68,7 +71,7 @@ class EventListFragment : Fragment() {
     }
 
     private fun onMoreInfoClicked(event: Event){
-        eventListViewModel.openUrl(event)
+        eventListViewModel.onMoreInfoClicked(event)
     }
 
     private fun onLastItemReached(){
@@ -118,10 +121,12 @@ class EventListFragment : Fragment() {
         return false
     }
 
-    private fun openUrl(url: String){
-        val i = Intent(Intent.ACTION_VIEW)
-        i.data = Uri.parse(url)
-        startActivity(i)
+    private fun navigateToEventDetailFragment(id: String){
+        findNavController().navigate(
+            EventListFragmentDirections.actionNavigationEventToEventDetailFragment(
+                id
+            )
+        )
     }
 
     private fun showError(title: String,message: String){
