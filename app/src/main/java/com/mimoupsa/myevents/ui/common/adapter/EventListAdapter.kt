@@ -17,13 +17,14 @@ import java.time.format.DateTimeFormatter
 
 class EventListAdapter(
     private val onFavoritesClicked: (Event) -> Unit = { },
-    private val onMoreInfoClicked: (Event) -> Unit = { }
+    private val onMoreInfoClicked: (Event) -> Unit = { },
+    private val onLastItemReached: () -> Unit
 ): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var events:MutableList<Event> = mutableListOf()
 
     fun onItems(e: EventList){
-        this.events = e.list.toMutableList()
+        this.events = e.list
     }
 
     override fun getItemCount(): Int = events.size
@@ -65,6 +66,10 @@ class EventListAdapter(
             }
             txtEventEmplacement.text = event.emplacement
             txtEventCity.text = event.city
+
+            if(adapterPosition==(itemCount -1)){
+                onLastItemReached()
+            }
         }
 
         init {

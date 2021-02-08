@@ -38,7 +38,7 @@ class LocationFragment : Fragment(), NoticeDialogListener{
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
     private lateinit var client: FusedLocationProviderClient
 
-    private val adapter: EventListAdapter by lazy { EventListAdapter(::onFavoritesClicked, ::onMoreInfoClicked) }
+    private val adapter: EventListAdapter by lazy { EventListAdapter(::onFavoritesClicked, ::onMoreInfoClicked, ::onLastItemReached) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,7 +63,7 @@ class LocationFragment : Fragment(), NoticeDialogListener{
         checkPermissions()
 
         swipeRefreshLayout.setOnRefreshListener {
-            locationViewModel.getMoreEvents()
+            locationViewModel.refreshEvents()
         }
 
         locationViewModel.isRefreshing.observe(viewLifecycleOwner, {
@@ -129,6 +129,10 @@ class LocationFragment : Fragment(), NoticeDialogListener{
 
     private fun onMoreInfoClicked(event: Event){
         locationViewModel.openUrl(event)
+    }
+
+    private fun onLastItemReached(){
+        locationViewModel.getMoreEvents()
     }
 
     private fun openSettingsDialog(progress: Int){

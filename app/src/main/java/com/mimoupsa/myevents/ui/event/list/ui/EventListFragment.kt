@@ -21,7 +21,7 @@ class EventListFragment : Fragment() {
 
     private lateinit var eventListViewModel: EventListViewModel
     private lateinit var recyclerView: RecyclerView
-    private val adapter: EventListAdapter by lazy { EventListAdapter(::onFavoritesClicked,::onMoreInfoClicked) }
+    private val adapter: EventListAdapter by lazy { EventListAdapter(::onFavoritesClicked,::onMoreInfoClicked, ::onLastItemReached) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,7 +40,7 @@ class EventListFragment : Fragment() {
 
         (activity as MainActivity).supportActionBar?.setTitle(R.string.title_event)
         eventListViewModel = ViewModelProvider(this).get(EventListViewModel::class.java)
-        eventListViewModel.getMoreEvents()
+        eventListViewModel.getEvents()
         eventListViewModel.eventsData().observe(viewLifecycleOwner, {events->
             adapter.onItems(events)
             adapter.notifyDataSetChanged()
@@ -59,6 +59,8 @@ class EventListFragment : Fragment() {
         eventListViewModel.error.observe(viewLifecycleOwner,{
             showError(it.title,it.message)
         })
+
+
     }
 
     private fun onFavoritesClicked(event: Event){
@@ -67,6 +69,10 @@ class EventListFragment : Fragment() {
 
     private fun onMoreInfoClicked(event: Event){
         eventListViewModel.openUrl(event)
+    }
+
+    private fun onLastItemReached(){
+        eventListViewModel.getMoreEvents()
     }
 
     private fun bindView(view: View){

@@ -22,18 +22,20 @@ class EventsApiDataSource {
         RetrofitHelper.getRetrofit().create(EventListService::class.java)
     }
 
-    fun getEvents(page: Int, kw:String?, callback: CallbackEvents){
-        service.getEvents(keyword = kw).enqueue(object : ServiceCallback<ResponseData>(){
+    fun getEvents(p: Int, kw:String?, callback: CallbackEvents){
+        service.getEvents(page = p,keyword = kw).enqueue(object : ServiceCallback<ResponseData>(){
             override fun onSuccess(response: ResponseData?) {
-                response?.apply {
-                    callback.onSuccess(
-                            EventList( embedded.events.let { e-> EventMapper.map(e) } )
-                    )
+                var list = EventList(mutableListOf())
+                response?.embedded?.apply {
+                   list =  EventList( events.let { e-> EventMapper.map(e).toMutableList() } )
                 }
+                callback.onSuccess(
+                        list
+                )
             }
 
             override fun onError(error: Int, message: String?) {
-                Log.i("REMOTE",error.toString())
+                callback.onError(error)
             }
         })
     }
@@ -55,13 +57,17 @@ class EventsApiDataSource {
         val geoPoint = GeoPointMapper.map(location)
         service.getEventsByLocation(page=page,radius = radius,geoPoint = geoPoint).enqueue( object :ServiceCallback<ResponseData>(){
             override fun onSuccess(response: ResponseData?) {
-                response?.apply {
-                    callback.onSuccess(EventList( embedded.events.let { e-> EventMapper.map(e) } ))
+                var list = EventList(mutableListOf())
+                response?.embedded?.apply {
+                    list = EventList( events.let { e-> EventMapper.map(e).toMutableList() } )
                 }
+                callback.onSuccess(
+                        list
+                )
             }
 
             override fun onError(error: Int, message: String?) {
-
+                callback.onError(error)
             }
         })
     }

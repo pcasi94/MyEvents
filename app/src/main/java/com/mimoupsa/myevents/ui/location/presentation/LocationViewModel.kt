@@ -37,18 +37,37 @@ class LocationViewModel(application: Application) : AndroidViewModel(application
 
     fun eventsData(): LiveData<EventList> = events
 
-    fun getMoreEvents(){
+    fun refreshEvents(){
         isRefreshing.value = true
+        page = 0
         val radius = PreferencesManager(getApplication()).radius
         viewModelScope.launch(Dispatchers.IO){
             dataSource.getEventsByLocation(page,radius,latitude,longitude, object : CallbackEvents {
                 override fun onSuccess(events: EventList) {
                     isRefreshing.value = false
+                    page++
                     this@LocationViewModel.events.value = events
                 }
 
                 override fun onError(errorCode: Int) {
                     isRefreshing.value = false
+                    error.value = ErrorModel(EventListViewModel.ERROR_TITLE, EventListViewModel.ERROR_MESSAGE)
+                }
+            })
+        }
+    }
+
+    fun getMoreEvents(){
+        val radius = PreferencesManager(getApplication()).radius
+        viewModelScope.launch(Dispatchers.IO){
+            dataSource.getEventsByLocation(page,radius,latitude,longitude, object : CallbackEvents {
+                override fun onSuccess(events: EventList) {
+                    page++
+                    this@LocationViewModel.events.value?.list?.addAll(events.list)
+                    this@LocationViewModel.events.postValue(this@LocationViewModel.events.value)
+                }
+
+                override fun onError(errorCode: Int) {
                     error.value = ErrorModel(EventListViewModel.ERROR_TITLE, EventListViewModel.ERROR_MESSAGE)
                 }
             })
@@ -57,9 +76,11 @@ class LocationViewModel(application: Application) : AndroidViewModel(application
 
     private fun updateEvents(lat: Double, long: Double){
         viewModelScope.launch {
+            page = 0
             val radius = PreferencesManager(getApplication()).radius
-            dataSource.getEventsByLocation(0,radius,lat,long, object : CallbackEvents{
+            dataSource.getEventsByLocation(page,radius,lat,long, object : CallbackEvents{
                 override fun onSuccess(events: EventList) {
+                    page++
                     this@LocationViewModel.events.value = events
                 }
 
@@ -69,6 +90,8 @@ class LocationViewModel(application: Application) : AndroidViewModel(application
             })
         }
     }
+
+
 
     fun getInsertResult() = insertResult
 

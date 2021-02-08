@@ -12,6 +12,7 @@ interface EventListService {
 
     @GET("events")
     fun getEvents(
+            @Query("page")page:Int,
             @Query("countryCode")string: String = "es",
             @Query("apikey")apiKey: String = BuildConfig.API_KEY,
             @Query("keyword")keyword: String?

@@ -7,18 +7,18 @@ data class EmbeddedEvent (
 
 data class VenueData(
         val name: String,
-        val type: String,
+        val type: String?,
         val id: String,
-        val test: Boolean,
+        val test: Boolean?,
         val url: String,
-        val locale: String,
-        val postalCode: String,
-        val timeZone: String,
-        val city: CityData,
-        val state: StateData,
-        val country: CountryData,
-        val address: AddressData,
-        val location: LocationData,
+        val locale: String?,
+        val postalCode: String?,
+        val timeZone: String?,
+        val city: CityData?,
+        val state: StateData?,
+        val country: CountryData?,
+        val address: AddressData?,
+        val location: LocationData?,
 )
 
 data class AttractionData(
@@ -47,7 +47,7 @@ data class CountryData(
 )
 
 data class AddressData(
-        val line1: String
+        val line1: String?
 )
 
 data class LocationData(

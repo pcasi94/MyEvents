@@ -27,33 +27,40 @@ class EventListViewModel(application: Application) : AndroidViewModel(applicatio
     fun eventsData(): LiveData<EventList> = events
 
     fun getMoreEvents(){
-        if(firstCall){
-            firstCall = false
-            viewModelScope.launch(Dispatchers.IO){
-                EventsApiDataSource.INSTANCE.getEvents(page, keyword, object : CallbackEvents{
-                    override fun onSuccess(events: EventList) {
-                        this@EventListViewModel.events.value = events
-                    }
-
-                    override fun onError(errorCode: Int) {
-                        error.value = ErrorModel(ERROR_TITLE, ERROR_MESSAGE)
-                    }
-                })
-            }
-        }
-    }
-
-    private fun getEvents(){
-        viewModelScope.launch(Dispatchers.IO){
-            EventsApiDataSource.INSTANCE.getEvents(0, keyword, object : CallbackEvents{
+        viewModelScope.launch(viewModelScope.coroutineContext){
+            EventsApiDataSource.INSTANCE.getEvents(page, keyword, object : CallbackEvents{
                 override fun onSuccess(events: EventList) {
-                    this@EventListViewModel.events.value = events
+                    page++
+                    this@EventListViewModel.events.value?.list?.addAll(events.list)
+                    this@EventListViewModel.events.postValue(this@EventListViewModel.events.value)
+
                 }
 
                 override fun onError(errorCode: Int) {
                     error.value = ErrorModel(ERROR_TITLE, ERROR_MESSAGE)
                 }
             })
+
+        }
+    }
+
+    fun getEvents(){
+        if(firstCall){
+            firstCall = false
+            page = 0
+            viewModelScope.launch(viewModelScope.coroutineContext) {
+                EventsApiDataSource.INSTANCE.getEvents(page, keyword, object : CallbackEvents {
+                    override fun onSuccess(events: EventList) {
+                        this@EventListViewModel.events.value = events
+                        page++
+                    }
+
+                    override fun onError(errorCode: Int) {
+                        error.value = ErrorModel(ERROR_TITLE, ERROR_MESSAGE)
+                    }
+
+                })
+            }
         }
     }
 
@@ -69,6 +76,7 @@ class EventListViewModel(application: Application) : AndroidViewModel(applicatio
 
     fun updateKeyWord(k: String?){
         keyword = k
+        firstCall = true
         getEvents()
     }
 

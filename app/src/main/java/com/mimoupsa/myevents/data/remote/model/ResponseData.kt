@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class ResponseData (
         @SerializedName("_embedded")
-        val embedded: EmbeddedData,
+        val embedded: EmbeddedData?,
         @SerializedName("page")
         val page: PageData
         )
