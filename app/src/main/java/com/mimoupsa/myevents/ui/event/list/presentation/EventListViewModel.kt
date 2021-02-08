@@ -17,6 +17,7 @@ class EventListViewModel(application: Application) : AndroidViewModel(applicatio
 
     private val repository = EventDBRepository(application)
     private val events = MutableLiveData<EventList>()
+    private var noMore = false
     private var page = 0
     private var firstCall = true
     private var insertResult = MutableLiveData<Boolean>()
@@ -27,20 +28,22 @@ class EventListViewModel(application: Application) : AndroidViewModel(applicatio
     fun eventsData(): LiveData<EventList> = events
 
     fun getMoreEvents(){
-        viewModelScope.launch(viewModelScope.coroutineContext){
-            EventsApiDataSource.INSTANCE.getEvents(page, keyword, object : CallbackEvents{
-                override fun onSuccess(events: EventList) {
-                    page++
-                    this@EventListViewModel.events.value?.list?.addAll(events.list)
-                    this@EventListViewModel.events.postValue(this@EventListViewModel.events.value)
+        if (!noMore){
+            viewModelScope.launch(viewModelScope.coroutineContext){
+                EventsApiDataSource.INSTANCE.getEvents(page, keyword, object : CallbackEvents{
+                    override fun onSuccess(events: EventList) {
+                        if (events.list.isEmpty()) noMore = true
+                        page++
+                        this@EventListViewModel.events.value?.list?.addAll(events.list)
+                        this@EventListViewModel.events.postValue(this@EventListViewModel.events.value)
+                    }
 
-                }
+                    override fun onError(errorCode: Int) {
+                        error.value = ErrorModel(ERROR_TITLE, ERROR_MESSAGE)
+                    }
+                })
 
-                override fun onError(errorCode: Int) {
-                    error.value = ErrorModel(ERROR_TITLE, ERROR_MESSAGE)
-                }
-            })
-
+            }
         }
     }
 

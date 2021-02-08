@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.ViewPager2
 import com.mimoupsa.myevents.R
 import com.mimoupsa.myevents.data.local.db.EventPOJO
 import com.mimoupsa.myevents.ui.MainActivity
@@ -20,6 +21,7 @@ import com.mimoupsa.myevents.ui.extensions.gone
 import com.mimoupsa.myevents.ui.extensions.visible
 import com.mimoupsa.myevents.ui.favorite.presentation.FavoritesViewModel
 import com.mimoupsa.myevents.ui.favorite.ui.adapter.EventPojoAdapter
+import com.rbrooks.indefinitepagerindicator.IndefinitePagerIndicator
 
 class FavoritesFragment : Fragment() {
 
@@ -27,7 +29,8 @@ class FavoritesFragment : Fragment() {
 
     private val adapter: EventPojoAdapter by lazy { EventPojoAdapter(::onDeleteFromFavoritesClicked, ::onMoreInfoClicked) }
 
-    private lateinit var recyclerView: RecyclerView
+    private lateinit var viewpager: ViewPager2
+    private lateinit var indicator: IndefinitePagerIndicator
     private lateinit var textNoFavorites: TextView
 
     override fun onCreateView(
@@ -59,10 +62,11 @@ class FavoritesFragment : Fragment() {
     }
 
     private fun bindView(view: View){
-        recyclerView = view.findViewById(R.id.rv_favorites)
-        recyclerView.layoutManager = LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false)
-        recyclerView.adapter = adapter
+        viewpager = view.findViewById(R.id.vpFavorites)
+        viewpager.adapter = adapter
 
+        indicator = view.findViewById(R.id.vpIndicator)
+        indicator.attachToViewPager2(viewpager)
         textNoFavorites = view.findViewById(R.id.txtNoEvents)
     }
 

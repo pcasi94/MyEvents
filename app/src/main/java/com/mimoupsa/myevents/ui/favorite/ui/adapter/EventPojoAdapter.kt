@@ -35,7 +35,7 @@ class EventPojoAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return EventsVH(
             LayoutInflater.from(parent.context).inflate(
-                R.layout.item_event,
+                R.layout.item_favorite,
                 parent,
                 false
             )
@@ -44,13 +44,13 @@ class EventPojoAdapter(
 
     inner class EventsVH(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        private val image: ImageView = itemView.findViewById(R.id.ivEventImage)
-        private val txtEventName: TextView = itemView.findViewById(R.id.txtEventName)
-        private val txtEventDate: TextView = itemView.findViewById(R.id.txtEventDate)
-        private val txtEventEmplacement: TextView = itemView.findViewById(R.id.txtEventEmplacement)
-        private val txtEventCity: TextView = itemView.findViewById(R.id.txtEventCity)
-        private val btnFavorites: Button = itemView.findViewById(R.id.btnFavorites)
-        private val btnMoreInfo: Button = itemView.findViewById(R.id.btnMoreInfo)
+        private val image: ImageView = itemView.findViewById(R.id.ivEventImageVp)
+        private val txtEventName: TextView = itemView.findViewById(R.id.txtEventNameVp)
+        private val txtEventDate: TextView = itemView.findViewById(R.id.txtEventDateVp)
+        private val txtEventEmplacement: TextView = itemView.findViewById(R.id.txtEventEmplacementVp)
+        private val txtEventCity: TextView = itemView.findViewById(R.id.txtEventCityVp)
+        private val btnFavorites: Button = itemView.findViewById(R.id.btnFavoritesVp)
+        private val btnMoreInfo: Button = itemView.findViewById(R.id.btnMoreInfoVp)
 
 
         fun bindViewHolder(event: EventPOJO) {

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dimen10">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/ivEventImageVp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/dimen20"
+                android:layout_marginTop="@dimen/dimen20"
+                android:adjustViewBounds="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:srcCompat="@tools:sample/backgrounds/scenic">
+            </ImageView>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clEventInfoVp"
+                app:layout_constraintTop_toBottomOf="@id/ivEventImageVp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginVertical="@dimen/dimen10"
+                app:layout_constraintBottom_toTopOf="@id/btnMoreInfoVp"
+                android:padding="@dimen/dimen20"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/txtEventNameVp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:textAppearance="@style/TextAppearanceH2"
+                    tools:text="Event Title"
+                    android:layout_width="0dp"
+                    android:textColor="@android:color/black"
+                    android:layout_height="wrap_content">
+                </TextView>
+
+                <TextView
+                    android:id="@+id/txtEventDateVp"
+                    app:layout_constraintTop_toBottomOf="@id/txtEventNameVp"
+                    android:layout_marginTop="@dimen/dimen10"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:textAppearance="@style/TextAppearanceH2"
+                    tools:text="Event Title"
+                    android:layout_width="0dp"
+                    android:textColor="@android:color/black"
+                    android:layout_height="wrap_content">
+                </TextView>
+
+                <TextView
+                    android:id="@+id/txtEventEmplacementVp"
+                    app:layout_constraintTop_toBottomOf="@id/txtEventDateVp"
+                    android:layout_marginTop="@dimen/dimen10"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:textAppearance="@style/TextAppearanceH3"
+                    tools:text="Event Title"
+                    android:layout_width="0dp"
+                    android:textColor="@android:color/black"
+                    android:layout_height="wrap_content">
+                </TextView>
+
+                <TextView
+                    android:id="@+id/txtEventCityVp"
+                    app:layout_constraintTop_toBottomOf="@id/txtEventEmplacementVp"
+                    android:layout_marginTop="@dimen/dimen10"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:textAppearance="@style/TextAppearanceH3"
+                    tools:text="Event Title"
+                    android:layout_width="0dp"
+                    android:layout_marginEnd="@dimen/dimen20"
+                    android:textColor="@android:color/black"
+                    android:layout_height="wrap_content">
+                </TextView>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <Button
+                android:id="@+id/btnFavoritesVp"
+                style="@style/BorderlessButtonStyle"
+                android:text="@string/button_add_to_favorites"
+                app:layout_constraintTop_toBottomOf="@id/clEventInfoVp"
+                app:layout_constraintEnd_toStartOf="@id/btnMoreInfoVp"
+                app:layout_constraintBaseline_toBaselineOf="@id/btnMoreInfoVp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginBottom="@dimen/dimen20"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            </Button>
+
+            <Button
+                android:id="@+id/btnMoreInfoVp"
+                app:layout_constraintTop_toBottomOf="@id/clEventInfoVp"
+                app:layout_constraintStart_toEndOf="@id/btnFavoritesVp"
+                app:layout_constraintEnd_toEndOf="parent"
+                style="@style/ButtonStyle"
+                android:text="@string/button_more_info"
+                android:layout_marginBottom="@dimen/dimen20"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            </Button>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>

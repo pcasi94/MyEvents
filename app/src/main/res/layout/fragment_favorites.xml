@@ -6,15 +6,28 @@
     android:layout_height="match_parent"
     tools:context=".ui.location.ui.LocationFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_favorites"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/vpFavorites"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/vpIndicator"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-    </androidx.recyclerview.widget.RecyclerView>
+    </androidx.viewpager2.widget.ViewPager2>
+
+    <com.rbrooks.indefinitepagerindicator.IndefinitePagerIndicator
+        android:id="@+id/vpIndicator"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/vpFavorites"
+        android:layout_marginVertical="@dimen/dimen20"
+        app:dotColor="@color/colorGrey5"
+        app:selectedDotColor="@color/colorPrimaryBlue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+    </com.rbrooks.indefinitepagerindicator.IndefinitePagerIndicator>
 
     <TextView
         android:id="@+id/txtNoEvents"

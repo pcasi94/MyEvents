@@ -45,6 +45,11 @@ class LocationFragment : Fragment(), NoticeDialogListener{
         setHasOptionsMenu(true)
     }
 
+    @RequiresApi(Build.VERSION_CODES.M)
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+    }
+
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
@@ -56,11 +61,12 @@ class LocationFragment : Fragment(), NoticeDialogListener{
         super.onViewCreated(view, savedInstanceState)
         (activity as MainActivity).supportActionBar?.setTitle(R.string.title_location)
 
-        bindView(view)
         locationViewModel = ViewModelProvider(this).get(LocationViewModel::class.java)
-
-        client = LocationServices.getFusedLocationProviderClient(requireActivity())
+        client  = LocationServices.getFusedLocationProviderClient(requireActivity())
         checkPermissions()
+
+        bindView(view)
+
 
         swipeRefreshLayout.setOnRefreshListener {
             locationViewModel.refreshEvents()
@@ -155,7 +161,7 @@ class LocationFragment : Fragment(), NoticeDialogListener{
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
-    private fun checkPermissions(){
+    fun checkPermissions(){
         locationViewModel.checkPermissionResult(
                 (ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)
                         &&

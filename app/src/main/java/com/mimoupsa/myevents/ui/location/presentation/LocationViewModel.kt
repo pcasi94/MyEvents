@@ -29,6 +29,7 @@ class LocationViewModel(application: Application) : AndroidViewModel(application
     var radiusSettings = MutableLiveData<Int>()
     val url = MutableLiveData<String>()
     var error = MutableLiveData<ErrorModel>()
+    private var noMore = false
 
     private var page = 0
     private var latitude: Double = 0.0
@@ -58,19 +59,22 @@ class LocationViewModel(application: Application) : AndroidViewModel(application
     }
 
     fun getMoreEvents(){
-        val radius = PreferencesManager(getApplication()).radius
-        viewModelScope.launch(Dispatchers.IO){
-            dataSource.getEventsByLocation(page,radius,latitude,longitude, object : CallbackEvents {
-                override fun onSuccess(events: EventList) {
-                    page++
-                    this@LocationViewModel.events.value?.list?.addAll(events.list)
-                    this@LocationViewModel.events.postValue(this@LocationViewModel.events.value)
-                }
+        if(!noMore){
+            val radius = PreferencesManager(getApplication()).radius
+            viewModelScope.launch(Dispatchers.IO){
+                dataSource.getEventsByLocation(page,radius,latitude,longitude, object : CallbackEvents {
+                    override fun onSuccess(events: EventList) {
+                        if (events.list.isEmpty()) noMore = true
+                        page++
+                        this@LocationViewModel.events.value?.list?.addAll(events.list)
+                        this@LocationViewModel.events.postValue(this@LocationViewModel.events.value)
+                    }
 
-                override fun onError(errorCode: Int) {
-                    error.value = ErrorModel(EventListViewModel.ERROR_TITLE, EventListViewModel.ERROR_MESSAGE)
-                }
-            })
+                    override fun onError(errorCode: Int) {
+                        error.value = ErrorModel(EventListViewModel.ERROR_TITLE, EventListViewModel.ERROR_MESSAGE)
+                    }
+                })
+            }
         }
     }
 
