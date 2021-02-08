@@ -22,4 +22,6 @@
 
     <string name="insert_success">¡Guardado!</string>
     <string name="insert_exists_error">¡Ya tienes guardado este evento en favoritos!</string>
+    <string name="string_ok">OK</string>
+    <string name="no_favorites">¡Aún no tienes ningún evento guardado como favoritos, prueba a agregar uno!</string>
 </resources>

@@ -16,4 +16,18 @@
         app:layout_constraintTop_toTopOf="parent">
     </androidx.recyclerview.widget.RecyclerView>
 
+    <TextView
+        android:id="@+id/txtNoEvents"
+        android:text="@string/no_favorites"
+        android:textAppearance="@style/TextAppearanceH1"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginHorizontal="@dimen/dimen40"
+        android:gravity="center"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content">
+    </TextView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

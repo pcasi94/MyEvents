@@ -21,7 +21,7 @@ class PreferencesManager(context: Context): BackupAgentHelper() {
 
     companion object{
         private const val PREFS = "mimoupsa.myevents"
-        private const val DEFAULT_VALUE = 0
+        private const val DEFAULT_VALUE = 12
         private const val RADIUS = "RADIUS"
         private const val KEY = "HELPER"
     }

@@ -3,6 +3,9 @@
     <style name="TextViewStyle" parent="Widget.MaterialComponents.TextView" />
 
 
+    <style name="SearchViewStyle">
+
+    </style>
     <!-- Toolbar -->
     <style name="ToolbarStyle" parent="ThemeOverlay.AppCompat.ActionBar">
         <item name="android:layout_width">wrap_content</item>

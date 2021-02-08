@@ -50,10 +50,10 @@ class EventsApiDataSource {
         })
     }
 
-    fun getEventsByLocation(page: Int,latitude: Double, longitude:Double, callback: CallbackEvents){
+    fun getEventsByLocation(page: Int,radius: Int,latitude: Double, longitude:Double, callback: CallbackEvents){
         val location = Location(latitude = latitude.toString(), longitude = longitude.toString())
         val geoPoint = GeoPointMapper.map(location)
-        service.getEventsByLocation(page=page,geoPoint = geoPoint).enqueue( object :ServiceCallback<ResponseData>(){
+        service.getEventsByLocation(page=page,radius = radius,geoPoint = geoPoint).enqueue( object :ServiceCallback<ResponseData>(){
             override fun onSuccess(response: ResponseData?) {
                 response?.apply {
                     callback.onSuccess(EventList( embedded.events.let { e-> EventMapper.map(e) } ))

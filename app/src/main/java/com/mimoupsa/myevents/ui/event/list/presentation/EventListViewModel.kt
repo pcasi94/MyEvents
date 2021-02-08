@@ -7,6 +7,7 @@ import com.mimoupsa.myevents.data.local.EventDBRepository
 import com.mimoupsa.myevents.data.remote.callback.CallbackEvents
 import com.mimoupsa.myevents.data.remote.datasource.EventsApiDataSource
 import com.mimoupsa.myevents.domain.mappers.EventPOJOMapper
+import com.mimoupsa.myevents.domain.model.ErrorModel
 import com.mimoupsa.myevents.domain.model.Event
 import com.mimoupsa.myevents.domain.model.EventList
 import kotlinx.coroutines.Dispatchers
@@ -20,6 +21,8 @@ class EventListViewModel(application: Application) : AndroidViewModel(applicatio
     private var firstCall = true
     private var insertResult = MutableLiveData<Boolean>()
     private var keyword: String? = null
+    var error = MutableLiveData<ErrorModel>()
+    val url = MutableLiveData<String>()
 
     fun eventsData(): LiveData<EventList> = events
 
@@ -33,7 +36,7 @@ class EventListViewModel(application: Application) : AndroidViewModel(applicatio
                     }
 
                     override fun onError(errorCode: Int) {
-                        // TODO SHOW ERROR
+                        error.value = ErrorModel(ERROR_TITLE, ERROR_MESSAGE)
                     }
                 })
             }
@@ -48,7 +51,7 @@ class EventListViewModel(application: Application) : AndroidViewModel(applicatio
                 }
 
                 override fun onError(errorCode: Int) {
-                    // TODO SHOW ERROR
+                    error.value = ErrorModel(ERROR_TITLE, ERROR_MESSAGE)
                 }
             })
         }
@@ -67,5 +70,14 @@ class EventListViewModel(application: Application) : AndroidViewModel(applicatio
     fun updateKeyWord(k: String?){
         keyword = k
         getEvents()
+    }
+
+    fun openUrl(event: Event){
+        url.value = event.url
+    }
+
+    companion object{
+        const val ERROR_TITLE = "Ha ocurrido un error"
+        const val ERROR_MESSAGE = "No se han podido recuperar los eventos, inténtalo de nuevo"
     }
 }

@@ -1,10 +1,12 @@
 package com.mimoupsa.myevents.ui.event.list.ui
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import android.widget.SearchView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,8 +16,6 @@ import com.mimoupsa.myevents.domain.model.Event
 import com.mimoupsa.myevents.ui.MainActivity
 import com.mimoupsa.myevents.ui.event.list.presentation.EventListViewModel
 import com.mimoupsa.myevents.ui.common.adapter.EventListAdapter
-import com.mimoupsa.myevents.ui.settings.NoticeDialogListener
-import com.mimoupsa.myevents.ui.settings.SettingsDialog
 
 class EventListFragment : Fragment() {
 
@@ -51,6 +51,14 @@ class EventListFragment : Fragment() {
             if(it) Toast.makeText(requireContext(),getString(R.string.insert_success),Toast.LENGTH_SHORT).show()
             else Toast.makeText(requireContext(),R.string.insert_exists_error,Toast.LENGTH_SHORT).show()
         })
+
+        eventListViewModel.url.observe(viewLifecycleOwner,{
+            openUrl(it)
+        })
+
+        eventListViewModel.error.observe(viewLifecycleOwner,{
+            showError(it.title,it.message)
+        })
     }
 
     private fun onFavoritesClicked(event: Event){
@@ -58,7 +66,7 @@ class EventListFragment : Fragment() {
     }
 
     private fun onMoreInfoClicked(event: Event){
-
+        eventListViewModel.openUrl(event)
     }
 
     private fun bindView(view: View){
@@ -102,6 +110,23 @@ class EventListFragment : Fragment() {
             }
         }
         return false
+    }
+
+    private fun openUrl(url: String){
+        val i = Intent(Intent.ACTION_VIEW)
+        i.data = Uri.parse(url)
+        startActivity(i)
+    }
+
+    private fun showError(title: String,message: String){
+        val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext(), R.style.Theme_MaterialComponents_DayNight_Dialog_Alert)
+        builder.setTitle(title)
+        builder.setMessage(message)
+        builder.setPositiveButton(getString(R.string.string_ok)) { d, _ ->
+            d.dismiss()
+        }
+        val alertDialog = builder.create()
+        alertDialog.show()
     }
 
 
