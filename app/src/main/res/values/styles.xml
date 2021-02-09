@@ -16,9 +16,10 @@
         <item name="android:textColorPrimary">@color/white</item>
         <!--This line changes the color of icons in toolbar (back, overflow menu icons)-->
         <item name="android:textColorSecondary">@color/white</item>
+        <item name="android:textColorHint">@color/colorWhite50</item>
         <item name="titleTextColor">@android:color/white</item>
         <item name="android:background">@color/colorPrimaryBlue</item>
-        <item name="android:textSize">@dimen/textSizeH2</item>
+        <item name="android:textSize">@dimen/textSizeH3</item>
         <item name="android:textStyle">bold</item>
     </style>
 

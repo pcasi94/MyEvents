@@ -5,15 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.v7.Toolbar
+    <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
-        style="@style/ToolbarStyle"
+        android:theme="@style/ToolbarStyle"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_width="0dp"
         android:layout_height="?actionBarSize">
-    </android.support.v7.Toolbar>
+    </androidx.appcompat.widget.Toolbar>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nav_view"

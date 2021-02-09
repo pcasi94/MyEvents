@@ -1,11 +1,6 @@
 package com.mimoupsa.myevents.ui.location.presentation
 
-import android.Manifest
 import android.app.Application
-import android.content.pm.PackageManager
-import android.os.Build
-import android.os.Bundle
-import androidx.annotation.RequiresApi
 import androidx.lifecycle.*
 import com.mimoupsa.myevents.data.local.EventDBRepository
 import com.mimoupsa.myevents.data.preferences.PreferencesManager
@@ -15,9 +10,8 @@ import com.mimoupsa.myevents.domain.mappers.EventPOJOMapper
 import com.mimoupsa.myevents.domain.model.ErrorModel
 import com.mimoupsa.myevents.domain.model.Event
 import com.mimoupsa.myevents.domain.model.EventList
-import com.mimoupsa.myevents.ui.common.SingleLiveData
+import com.mimoupsa.myevents.domain.utils.SingleLiveData
 import com.mimoupsa.myevents.ui.event.list.presentation.EventListViewModel
-import com.mimoupsa.myevents.ui.location.ui.LocationFragment
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 

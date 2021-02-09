@@ -1,4 +1,4 @@
-package com.mimoupsa.myevents.ui.common
+package com.mimoupsa.myevents.domain.utils
 
 import androidx.annotation.MainThread
 import androidx.lifecycle.LifecycleOwner
