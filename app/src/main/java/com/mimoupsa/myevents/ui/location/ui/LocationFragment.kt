@@ -8,6 +8,7 @@ import android.location.LocationManager
 import android.os.Build
 import android.os.Bundle
 import android.view.*
+import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
@@ -22,8 +23,10 @@ import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.mimoupsa.myevents.R
 import com.mimoupsa.myevents.domain.model.Event
+import com.mimoupsa.myevents.domain.model.EventList
 import com.mimoupsa.myevents.ui.MainActivity
 import com.mimoupsa.myevents.ui.common.adapter.EventListAdapter
+import com.mimoupsa.myevents.ui.extensions.switchVisibility
 import com.mimoupsa.myevents.ui.location.presentation.LocationViewModel
 import com.mimoupsa.myevents.ui.location.presentation.LocationViewModel.Companion.LOCATION_CODE
 import com.mimoupsa.myevents.ui.settings.NoticeDialogListener
@@ -35,6 +38,7 @@ class LocationFragment : Fragment(), NoticeDialogListener{
     private lateinit var locationViewModel: LocationViewModel
     private lateinit var recyclerView: RecyclerView
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
+    private lateinit var txtNoEventsLocation: TextView
     private lateinit var client: FusedLocationProviderClient
 
     private val adapter: EventListAdapter by lazy { EventListAdapter(::onFavoritesClicked, ::onMoreInfoClicked, ::onLastItemReached) }
@@ -73,11 +77,12 @@ class LocationFragment : Fragment(), NoticeDialogListener{
         })
 
         locationViewModel.eventsData().observe(viewLifecycleOwner, {
+            checkList(it)
             adapter.onItems(it)
             adapter.notifyDataSetChanged()
         })
         locationViewModel.askPermissions.observe(viewLifecycleOwner, {
-            requestPermissions(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), LOCATION_CODE)
+            requestPermissions(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION), LOCATION_CODE)
         })
         locationViewModel.getLocation.observe(viewLifecycleOwner, {
             this.getLocation()
@@ -159,6 +164,8 @@ class LocationFragment : Fragment(), NoticeDialogListener{
         recyclerView.adapter = adapter
 
         swipeRefreshLayout = view.findViewById(R.id.swipeRefresh)
+
+        txtNoEventsLocation = view.findViewById(R.id.txtNoEventsLocation)
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
@@ -168,6 +175,16 @@ class LocationFragment : Fragment(), NoticeDialogListener{
                         &&
                         (ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED)
         )
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+        if((requestCode == LOCATION_CODE && grantResults.isNotEmpty()) && (grantResults.first() + grantResults[1] == PackageManager.PERMISSION_GRANTED)) getLocation()
     }
 
     @SuppressLint("MissingPermission")
@@ -192,6 +209,10 @@ class LocationFragment : Fragment(), NoticeDialogListener{
         }
         val alertDialog = builder.create()
         alertDialog.show()
+    }
+
+    private fun checkList(el: EventList){
+        txtNoEventsLocation.switchVisibility(el)
     }
 
 }

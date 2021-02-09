@@ -26,6 +26,7 @@
     <string name="insert_exists_error">¡Ya tienes guardado este evento en favoritos!</string>
     <string name="string_ok">OK</string>
     <string name="no_favorites">¡Aún no tienes ningún evento guardado como favoritos, prueba a agregar uno!</string>
+    <string name="no_events_location">¡No tienes ningún evento cerca, prueba a expandir el radio de búsqueda en la pestaña de ajustes!</string>
     <string name="detail_facebook">Facebook</string>
     <string name="detail_homepage">Pagina web</string>
     <string name="detail_instagram">Instagram</string>
