@@ -9,12 +9,13 @@ import com.mimoupsa.myevents.data.remote.datasource.EventsApiDataSource
 import com.mimoupsa.myevents.domain.model.ErrorModel
 import com.mimoupsa.myevents.domain.model.Event
 import com.mimoupsa.myevents.domain.model.EventList
+import com.mimoupsa.myevents.ui.common.SingleLiveData
 import kotlinx.coroutines.launch
 
 class FavoritesViewModel(application: Application) : AndroidViewModel(application) {
 
     private val repository = EventDBRepository(application)
-    val onDetail = MutableLiveData<String>()
+    val onDetail = SingleLiveData<String>()
 
     val eventDb: LiveData<List<EventPOJO>> = repository.getAllEvents()
 

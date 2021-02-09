@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import java.net.URL
 
@@ -28,3 +29,4 @@ fun View.invisible() {
 fun View.switchVisibility(it: Any?){
     if (it == null) visibility = View.GONE
 }
+

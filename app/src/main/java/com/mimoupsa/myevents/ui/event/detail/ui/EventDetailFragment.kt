@@ -21,6 +21,7 @@ import com.mimoupsa.myevents.ui.MainActivity
 import com.mimoupsa.myevents.ui.event.detail.presentation.EventDetailViewModel
 import com.mimoupsa.myevents.ui.extensions.loadImage
 import com.mimoupsa.myevents.ui.extensions.switchVisibility
+import com.mimoupsa.myevents.ui.location.ui.LocationFragment
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
@@ -114,6 +115,8 @@ class EventDetailFragment: Fragment() {
 
     private fun setView(event: Event){
         setVisibility(event)
+
+        (activity as MainActivity).supportActionBar?.title = event.name
         event.images?.first()?.url?.let { imageView.loadImage(requireContext(), it) }
         eventName.text = event.name
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -146,6 +149,17 @@ class EventDetailFragment: Fragment() {
         val i = Intent(Intent.ACTION_VIEW)
         i.data = Uri.parse(url)
         startActivity(i)
+    }
+
+
+    companion object{
+        private const val ARG_DATA = "arg:data"
+        fun newInstance(args: String) =
+                LocationFragment().apply {
+                    arguments = Bundle().apply {
+                        putString(ARG_DATA, args)
+                    }
+                }
     }
 
 }

@@ -8,9 +8,14 @@
     </style>
     <!-- Toolbar -->
     <style name="ToolbarStyle" parent="ThemeOverlay.AppCompat.ActionBar">
+
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_gravity">center</item>
+        <!--This line changes the color of text in Toolbar-->
+        <item name="android:textColorPrimary">@color/white</item>
+        <!--This line changes the color of icons in toolbar (back, overflow menu icons)-->
+        <item name="android:textColorSecondary">@color/white</item>
         <item name="titleTextColor">@android:color/white</item>
         <item name="android:background">@color/colorPrimaryBlue</item>
         <item name="android:textSize">@dimen/textSizeH2</item>

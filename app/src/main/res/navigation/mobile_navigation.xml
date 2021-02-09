@@ -12,7 +12,7 @@
         tools:layout="@layout/fragment_event_list">
         <action
             android:id="@+id/action_navigation_event_to_eventDetailFragment"
-            app:destination="@id/eventDetailFragment" />
+            app:destination="@id/eventDetailFragment"/>
     </fragment>
 
     <fragment
@@ -22,7 +22,7 @@
         tools:layout="@layout/fragment_location">
         <action
             android:id="@+id/action_navigation_location_to_eventDetailFragment"
-            app:destination="@id/eventDetailFragment" />
+            app:destination="@id/eventDetailFragment"/>
     </fragment>
 
     <fragment
@@ -37,6 +37,7 @@
     <fragment
         android:id="@+id/eventDetailFragment"
         android:name="com.mimoupsa.myevents.ui.event.detail.ui.EventDetailFragment"
+        tools:layout="@layout/fragment_event_detail"
         android:label="EventDetailFragment" >
         <argument
             android:name="id"

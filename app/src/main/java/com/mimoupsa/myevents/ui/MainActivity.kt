@@ -1,12 +1,11 @@
 package com.mimoupsa.myevents.ui
 
 import android.os.Bundle
-import android.view.Menu
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.mimoupsa.myevents.R
 
 class MainActivity : AppCompatActivity() {
@@ -21,6 +20,11 @@ class MainActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 
 }

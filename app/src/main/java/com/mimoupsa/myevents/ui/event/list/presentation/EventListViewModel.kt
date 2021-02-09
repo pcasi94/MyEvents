@@ -10,6 +10,7 @@ import com.mimoupsa.myevents.domain.mappers.EventPOJOMapper
 import com.mimoupsa.myevents.domain.model.ErrorModel
 import com.mimoupsa.myevents.domain.model.Event
 import com.mimoupsa.myevents.domain.model.EventList
+import com.mimoupsa.myevents.ui.common.SingleLiveData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -23,7 +24,7 @@ class EventListViewModel(application: Application) : AndroidViewModel(applicatio
     private var insertResult = MutableLiveData<Boolean>()
     private var keyword: String? = null
     var error = MutableLiveData<ErrorModel>()
-    val onDetail = MutableLiveData<String>()
+    val onDetail = SingleLiveData<String>()
 
     fun eventsData(): LiveData<EventList> = events
 

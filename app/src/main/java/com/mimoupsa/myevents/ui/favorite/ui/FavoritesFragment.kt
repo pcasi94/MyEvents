@@ -35,11 +35,6 @@ class FavoritesFragment : Fragment() {
     private lateinit var indicator: IndefinitePagerIndicator
     private lateinit var textNoFavorites: TextView
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        (activity as MainActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
-        (activity as MainActivity).supportActionBar?.setDisplayShowHomeEnabled(false)
-    }
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -51,6 +46,9 @@ class FavoritesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        (activity as MainActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        (activity as MainActivity).supportActionBar?.setDisplayShowHomeEnabled(false)
         (activity as MainActivity).supportActionBar?.setTitle(R.string.title_favorite)
 
         bindView(view)

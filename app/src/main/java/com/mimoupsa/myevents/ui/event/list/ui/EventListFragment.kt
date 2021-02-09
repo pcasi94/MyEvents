@@ -26,8 +26,6 @@ class EventListFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        (activity as MainActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
-        (activity as MainActivity).supportActionBar?.setDisplayShowHomeEnabled(false)
         setHasOptionsMenu(true)
     }
 
@@ -41,7 +39,10 @@ class EventListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         bindView(view)
 
+        (activity as MainActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        (activity as MainActivity).supportActionBar?.setDisplayShowHomeEnabled(false)
         (activity as MainActivity).supportActionBar?.setTitle(R.string.title_event)
+        
         eventListViewModel = ViewModelProvider(this).get(EventListViewModel::class.java)
         eventListViewModel.getEvents()
         eventListViewModel.eventsData().observe(viewLifecycleOwner, {events->

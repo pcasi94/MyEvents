@@ -3,10 +3,8 @@ package com.mimoupsa.myevents.ui.location.ui
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.LocationManager
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.view.*
@@ -43,8 +41,6 @@ class LocationFragment : Fragment(), NoticeDialogListener{
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        (activity as MainActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
-        (activity as MainActivity).supportActionBar?.setDisplayShowHomeEnabled(false)
         setHasOptionsMenu(true)
     }
 
@@ -57,6 +53,8 @@ class LocationFragment : Fragment(), NoticeDialogListener{
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (activity as MainActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        (activity as MainActivity).supportActionBar?.setDisplayShowHomeEnabled(false)
         (activity as MainActivity).supportActionBar?.setTitle(R.string.title_location)
 
         locationViewModel = ViewModelProvider(this).get(LocationViewModel::class.java)
@@ -145,11 +143,14 @@ class LocationFragment : Fragment(), NoticeDialogListener{
     }
 
     private fun navigateToEventDetailFragment(id: String){
-        findNavController().navigate(
-            LocationFragmentDirections.actionNavigationLocationToEventDetailFragment(
-                id
+        context?.apply {
+            findNavController().navigate(
+                    LocationFragmentDirections.actionNavigationLocationToEventDetailFragment(
+                            id
+                    )
             )
-        )
+        }
+
     }
 
     private fun bindView(view: View){
@@ -192,8 +193,5 @@ class LocationFragment : Fragment(), NoticeDialogListener{
         val alertDialog = builder.create()
         alertDialog.show()
     }
-
-
-
 
 }
